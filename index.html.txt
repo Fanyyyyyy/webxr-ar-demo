@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebXR AR Example</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+        .ar-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <button class="ar-button" id="ar-button">View in AR</button>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@3.3.2/aframe/build/aframe-ar.min.js"></script>
+    <script>
+        const arButton = document.getElementById('ar-button');
+        arButton.addEventListener('click', () => {
+            const scene = document.createElement('a-scene');
+            scene.setAttribute('embedded', '');
+            scene.setAttribute('arjs', 'sourceType: webcam; debugUIEnabled: false;');
+            
+            const model = document.createElement('a-entity');
+            model.setAttribute('gltf-model', 'model.glb');
+            model.setAttribute('scale', '0.5 0.5 0.5');
+            model.setAttribute('position', '0 0 0');
+            
+            scene.appendChild(model);
+            document.body.appendChild(scene);
+            
+            arButton.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
